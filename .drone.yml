@@ -1,0 +1,35 @@
+---
+kind: pipeline
+name: default
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: lint
+  pull: default
+  image: timovibritannia/dockerlint
+  commands:
+  - dockerfile_lint Dockerfile
+  when:
+    branch:
+    - master
+    - dev
+
+- name: build
+  pull: default
+  image: plugins/docker
+  settings:
+    auto_tag: false
+    dockerfile: Dockerfile
+    context: .
+    repo: timovibritannia/ansible
+    tags: latest
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+  when:
+    branch:
+    - master
