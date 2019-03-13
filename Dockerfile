@@ -12,7 +12,8 @@
 FROM   ubuntu:bionic
 
 LABEL name="Ansible" \
-      version="2.7"
+      version="2.7"  \
+      maintainer="ntimo"
 
 # Download and install everything from the repos.
 RUN    DEBIAN_FRONTEND=noninteractive \
